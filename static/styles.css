@@ -1,0 +1,15 @@
+body {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+a:link {
+  color: rgb(143 26 42);
+}
+a:visited {
+  color: rgb(143 26 42);
+}
+a:hover {
+  color: rgb(255 153 51);
+}
+a:active {
+  color: rgb(255 215 127);
+}
