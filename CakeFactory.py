@@ -75,7 +75,7 @@ def register():
                     content.save(os.path.join('static', 'img', filename))
                     models.insert(user_name, password, "Заказчик", fio, filename)
                 else:
-                    models.insert(user_name, password, "Заказчик", fio)
+                    models.insert_user(user_name, password, "Заказчик", fio)
                 exists = models.exists(user_name, password)
                 session['username'] = user_name
                 session['role'] = exists[1][2]
@@ -83,6 +83,8 @@ def register():
             else:
                 error = 'Пароль не должен содержать логин. Пароль и проверка пароля должны совпадать.'
                 return render_template('register.html', title='Регистрация', form=form, error=error)
+        global attempts
+        attempts = 0
         return redirect("/")
     return render_template('register.html', title='Регистрация', form=form, error=error)
 
