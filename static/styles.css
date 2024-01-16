@@ -13,3 +13,48 @@ a:hover {
 a:active {
   color: rgb(255 215 127);
 }
+.alert-primary {
+  color: rgb(143 26 42);
+  background-color: rgb(255 215 127);
+  border-color: rgb(255 153 51);
+}
+a.btn-primary:link {
+    color: #fff;
+    background-color: rgb(255 153 51);
+    border-color: rgb(143 26 42);
+}
+a.btn-danger:link {
+    color: #fff;
+    background-color: rgb(143 26 42);
+    border-color: rgb(143 26 42);
+}
+a.btn-primary:visited {
+    color: #fff;
+    background-color: rgb(255 153 51);
+    border-color: rgb(143 26 42);
+}
+a.btn-danger:visited {
+    color: #fff;
+    background-color: rgb(143 26 42);
+    border-color: rgb(143 26 42);
+}
+a.btn-primary:active {
+    color: #fff;
+    background-color: rgb(255 153 51);
+    border-color: rgb(143 26 42);
+}
+a.btn-danger:active {
+    color: #fff;
+    background-color: rgb(143 26 42);
+    border-color: rgb(143 26 42);
+}
+a.btn-primary:hover {
+    color: #000;
+    background-color: rgb(233 230 177);
+    border-color: rgb(143 26 42);
+}
+a.btn-danger:hover {
+    color: #fff;
+    background-color: rgb(255 153 51);
+    border-color: rgb(143 26 42);
+}

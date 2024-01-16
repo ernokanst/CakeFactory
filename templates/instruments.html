@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Учёт инструмента</h1>
+    <a href="/add_instrument" style="border: dashed">Добавить инструмент</a>
+    <div class="alert alert-primary" role="alert">
+        <table align="center">
+            <tr>
+            <th>Наименование</th>
+            <th>Тип инструмента</th>
+            <th>Возраст</th>
+            <th>Количество</th>
+            </tr>
+        {% for item in instruments %}
+            <tr>
+            <td>{{item[0]}}</td>
+            <td>{{item[1]}}</td>
+            <td>{{item[2]}} месяц(ев)</td>
+            <td>{{item[3]}}</td>
+            </tr>
+            
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

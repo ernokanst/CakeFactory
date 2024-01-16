@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Редактирование ингредиента</h1>
+    <form action="" method="post" enctype="multipart/form-data" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.artikul.label }}<br>
+            {{ form.artikul (disabled=True)}}<br>
+            {% for error in form.artikul.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.naimenovanie.label }}<br>
+            {{ form.naimenovanie }}<br>
+            {% for error in form.naimenovanie.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.edinitsa_izmereniya.label }}<br>
+            {{ form.edinitsa_izmereniya }}<br>
+            {% for error in form.edinitsa_izmereniya.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.kolichestvo.label }}<br>
+            {{ form.kolichestvo }}<br>
+            {% for error in form.kolichestvo.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.postavschik.label }}<br>
+            {{ form.postavschik }}<br>
+            {% for error in form.postavschik.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.izobrazhenie.label }}<br>
+            {{ form.izobrazhenie }}<br>
+            {% for error in form.izobrazhenie.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.tip_ingredienta.label }}<br>
+            {{ form.tip_ingredienta }}<br>
+            {% for error in form.tip_ingredienta.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.zakupochnaya_tsena.label }}<br>
+            {{ form.zakupochnaya_tsena }}<br>
+            {% for error in form.zakupochnaya_tsena.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.gost.label }}<br>
+            {{ form.gost }}<br>
+            {% for error in form.gost.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.fasovka.label }}<br>
+            {{ form.fasovka }}<br>
+            {% for error in form.fasovka.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.harakteristika.label }}<br>
+            {{ form.harakteristika }}<br>
+            {% for error in form.harakteristika.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.srok_godnosti.label }}<br>
+            {{ form.srok_godnosti }}<br>
+            {% for error in form.srok_godnosti.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

@@ -72,6 +72,7 @@ class Models:
                              tip_ukrasheniya TEXT NOT NULL,
                              zakupochnaya_tsena REAL NOT NULL,
                              ves REAL NOT NULL,
+                             srok_godnosti TEXT NOT NULL,
                              FOREIGN KEY(postavschik) REFERENCES postavschik(naimenovanie)
                              )''')        
         cursor.execute('''CREATE TABLE IF NOT EXISTS spetsifikatsiya_ukrasheniya
@@ -94,6 +95,7 @@ class Models:
                              gost TEXT,
                              fasovka TEXT,
                              harakteristika TEXT,
+                             srok_godnosti TEXT NOT NULL,
                              FOREIGN KEY(postavschik) REFERENCES postavschik(naimenovanie)
                              )''')
         cursor.execute('''CREATE TABLE IF NOT EXISTS spetsifikatsiya_ingredienty
@@ -103,6 +105,16 @@ class Models:
                              PRIMARY KEY (izdelie, ingredient),
                              FOREIGN KEY(izdelie) REFERENCES izdelie(naimenovanie),
                              FOREIGN KEY(ingredient) REFERENCES ingredient(artikul)
+                             )''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS instrument
+                            (naimenovanie TEXT NOT NULL,
+                             opisanie TEXT,
+                             tip_instrumenta TEXT NOT NULL,
+                             stepen_iznosa TEXT,
+                             postavschik TEXT,
+                             data_priobreteniya TEXT NOT NULL,
+                             kolichestvo TEXT NOT NULL,
+                             FOREIGN KEY(postavschik) REFERENCES postavschik(naimenovanie)
                              )''')        
         cursor.close()
         self.connection.commit()
@@ -115,22 +127,122 @@ class Models:
         cursor.close()
         self.connection.commit()
         
-    def insert_decoration(self, artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ukrasheniya, zakupochnaya_tsena, ves):
+    def insert_decoration(self, artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ukrasheniya, zakupochnaya_tsena, ves, srok_godnosti=''):
         cursor = self.connection.cursor()
         cursor.execute('''INSERT INTO ukrashenie 
-                          (artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ukrasheniya, zakupochnaya_tsena, ves) 
-                          VALUES (?,?,?,?,?,?,?,?,?)''', (artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ukrasheniya, zakupochnaya_tsena, ves))
+                          (artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ukrasheniya, zakupochnaya_tsena, ves, srok_godnosti) 
+                          VALUES (?,?,?,?,?,?,?,?,?,?)''', (artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ukrasheniya, zakupochnaya_tsena, ves, srok_godnosti))
         cursor.close()
         self.connection.commit()    
     
-    def insert_ingredient(self, artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ingredienta, zakupochnaya_tsena, gost='', fasovka='', harakteristika=''):
+    def insert_ingredient(self, artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ingredienta, zakupochnaya_tsena, gost='', fasovka='', harakteristika='', srok_godnosti=''):
         cursor = self.connection.cursor()
         cursor.execute('''INSERT INTO ingredient 
-                          (artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ingredienta, zakupochnaya_tsena, gost, fasovka, harakteristika) 
-                          VALUES (?,?,?,?,?,?,?,?,?,?,?)''', (artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ingredienta, zakupochnaya_tsena, gost, fasovka, harakteristika))
+                          (artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ingredienta, zakupochnaya_tsena, gost, fasovka, harakteristika, srok_godnosti) 
+                          VALUES (?,?,?,?,?,?,?,?,?,?,?,?)''', (artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ingredienta, zakupochnaya_tsena, gost, fasovka, harakteristika, srok_godnosti))
         cursor.close()
-        self.connection.commit()     
-
+        self.connection.commit()
+    
+    def update_ingredient(self, artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ingredienta, zakupochnaya_tsena, gost='', fasovka='', harakteristika='', srok_godnosti=''):
+        cursor = self.connection.cursor()
+        cursor.execute('''UPDATE ingredient SET
+                          naimenovanie = ?, edinitsa_izmereniya = ?, kolichestvo = ?, postavschik = ?, izobrazhenie = ?, tip_ingredienta = ?, zakupochnaya_tsena = ?, gost = ?, fasovka = ?, harakteristika = ?, srok_godnosti = ?
+                          WHERE artikul = ?''', (naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ingredienta, zakupochnaya_tsena, gost, fasovka, harakteristika, srok_godnosti, artikul))
+        cursor.close()
+        self.connection.commit()    
+    
+    def insert_instrument(self, naimenovanie, opisanie, tip_instrumenta, stepen_iznosa, postavschik, data_priobreteniya, kolichestvo):
+        cursor = self.connection.cursor()
+        cursor.execute('''INSERT INTO instrument 
+                          (naimenovanie, opisanie, tip_instrumenta, stepen_iznosa, postavschik, data_priobreteniya, kolichestvo) 
+                          VALUES (?,?,?,?,?,?,?)''', (naimenovanie, opisanie, tip_instrumenta, stepen_iznosa, postavschik, data_priobreteniya, kolichestvo))
+        cursor.close()
+        self.connection.commit()
+    
+    def get_instruments(self):
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM instrument")
+        rows = cursor.fetchall()
+        return rows
+    
+    def get_ingredient(self, artikul):
+        cursor = self.connection.cursor()
+        cursor.execute(
+            "SELECT * FROM ingredient WHERE artikul = ?", (artikul,))
+        row = cursor.fetchone()
+        return row if row else False
+    
+    def delete_ingredient(self, artikul):
+        cursor = self.connection.cursor()
+        cursor.execute('''DELETE FROM ingredient WHERE artikul = ?''',
+                           (str(artikul),))
+        cursor.close()
+        self.connection.commit()    
+    
+    def get_ingredients(self):
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM ingredient")
+        rows = cursor.fetchall()
+        return rows
+    
+    def update_decoration(self, artikul, naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ukrasheniya, zakupochnaya_tsena, ves, srok_godnosti=''):
+        cursor = self.connection.cursor()
+        cursor.execute('''UPDATE ukrashenie SET
+                          naimenovanie = ?, edinitsa_izmereniya = ?, kolichestvo = ?, postavschik = ?, izobrazhenie = ?, tip_ukrasheniya = ?, zakupochnaya_tsena = ?, ves = ?, srok_godnosti = ?
+                          WHERE artikul = ?''', (naimenovanie, edinitsa_izmereniya, kolichestvo, postavschik, izobrazhenie, tip_ukrasheniya, zakupochnaya_tsena, ves, srok_godnosti, artikul))
+        cursor.close()
+        self.connection.commit()
+        
+    def get_decoration(self, artikul):
+        cursor = self.connection.cursor()
+        cursor.execute(
+            "SELECT * FROM ukrashenie WHERE artikul = ?", (artikul,))
+        row = cursor.fetchone()
+        return row if row else False
+    
+    def delete_decoration(self, artikul):
+        cursor = self.connection.cursor()
+        cursor.execute('''DELETE FROM ukrashenie WHERE artikul = ?''',
+                           (str(artikul),))
+        cursor.close()
+        self.connection.commit()    
+    
+    def get_decorations(self):
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM ukrashenie")
+        rows = cursor.fetchall()
+        return rows    
+    
+    def get_supplier(self, naimenovanie):
+        cursor = self.connection.cursor()
+        cursor.execute(
+            "SELECT * FROM postavschik WHERE naimenovanie = ?", (naimenovanie,))
+        row = cursor.fetchone()
+        return (True, row) if row else (False,)
+    
+    def normalize_price(p):
+        price = p
+        if "руб" in price:
+            price = price.split("руб")[0]
+            if "до" in price:
+                price = price.split("до")[1]
+        if "р/т" in price:
+            price = price.replace("р/т", '')
+        if "'" in price:
+            price = price.replace("'", '')
+        if "." in price:
+            price = price.split(".")
+        if "," in price:
+            price = price.split(",")
+        if "-" in price:
+            price = price.split("-")
+        if isinstance(price, list):
+            price = float(price[0]) + float("0." + price[1])
+        else:
+            price = float(price)
+        return price
+        
+    
     def get(self, login):
         cursor = self.connection.cursor()
         cursor.execute("SELECT * FROM polzovatel WHERE login = ?", (str(login),))

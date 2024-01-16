@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Добавить инструмент</h1>
+    <form action="" method="post" enctype="multipart/form-data" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.naimenovanie.label }}<br>
+            {{ form.naimenovanie }}<br>
+            {% for error in form.naimenovanie.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.opisanie.label }}<br>
+            {{ form.opisanie }}<br>
+            {% for error in form.opisanie.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.tip_instrumenta.label }}<br>
+            {{ form.tip_instrumenta }}<br>
+            {% for error in form.tip_instrumenta.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.stepen_iznosa.label }}<br>
+            {{ form.stepen_iznosa }}<br>
+            {% for error in form.stepen_iznosa.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.postavschik.label }}<br>
+            {{ form.postavschik }}<br>
+            {% for error in form.postavschik.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.data_priobreteniya.label }}<br>
+            {{ form.data_priobreteniya }}<br>
+            {% for error in form.data_priobreteniya.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.kolichestvo.label }}<br>
+            {{ form.kolichestvo }}<br>
+            {% for error in form.kolichestvo.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Учёт ингредиентов</h1>
+    <div class="alert alert-primary" role="alert">
+        Всего ингредиентов: {{overall}}
+        <br/>
+        Отображено ингредиентов: {{current}}
+        <br />
+        Закупочная стоимость: {{"%.2f"|format(price)}}₽
+        <br />
+        <form action="" method="post" enctype="multipart/form-data" novalidate>
+            {{ form.hidden_tag() }}
+            Фильтрация по сроку годности: от {{ form.date_from }} до {{ form.date_till }} {{ form.submit() }}
+        </form>
+        <table align="center" style="width:100%">
+            <tr>
+            <th>Артикул</th>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Закупочная цена</th>
+            <th>Поставщик</th>
+            <th>Срок доставки</th>
+            <th>Срок годности</th>
+            {% if role == "Директор" or role == "Менеджер по закупкам" %}
+            <th>Действия</th>
+            {% endif %}
+            </tr>
+        {% for item in ingredients %}
+            <tr>
+            <td>{{item[0]}}</td>
+            <td>{{item[1]}}</td>
+            <td>{{item[2]}} {{item[3]}}</td>
+            <td>{{item[4]}}</td>
+            <td>{{item[5]}}</td>
+            <td>{{item[6]}}</td>
+            <td>{{item[7]}}</td>
+            {% if role == "Директор" or role == "Менеджер по закупкам" %}
+            <td>
+            <a class="btn btn-primary btn-sm" href="/update_ingredient/{{item[8]}}" role="button">Редактировать</button>
+            {% if item[2] == 0 %}
+            <a class="btn btn-danger btn-sm" href="/delete_ingredient/{{item[8]}}" role="button">Удалить</button>
+            {% endif %}
+            </td>
+            {% endif %}
+            </tr>
+            
+        {% endfor %}
+        </table>
+    </div>
+{% endblock %}

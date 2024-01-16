@@ -5,6 +5,7 @@
     <a href="/register">Регистрация клиентов</a>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
+        {% if enabled == True %}
         <p>
             {{ form.username.label }}<br>
             {{ form.username }}<br>
@@ -14,11 +15,12 @@
             {{ form.password }}<br>
         </p>
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit() }}</p>
+        {%endif%}
         {% if error %}
             <p><div class="alert alert-danger" role="alert">
                 {{ error }}
             </div></p>
         {% endif %}
-        <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}

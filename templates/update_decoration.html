@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Редактирование украшения для торта</h1>
+    <form action="" method="post" enctype="multipart/form-data" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.artikul.label }}<br>
+            {{ form.artikul (disabled=True)}}<br>
+            {% for error in form.artikul.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.naimenovanie.label }}<br>
+            {{ form.naimenovanie }}<br>
+            {% for error in form.naimenovanie.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.edinitsa_izmereniya.label }}<br>
+            {{ form.edinitsa_izmereniya }}<br>
+            {% for error in form.edinitsa_izmereniya.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.kolichestvo.label }}<br>
+            {{ form.kolichestvo }}<br>
+            {% for error in form.kolichestvo.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.postavschik.label }}<br>
+            {{ form.postavschik }}<br>
+            {% for error in form.postavschik.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.izobrazhenie.label }}<br>
+            {{ form.izobrazhenie }}<br>
+            {% for error in form.izobrazhenie.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.tip_ukrasheniya.label }}<br>
+            {{ form.tip_ukrasheniya }}<br>
+            {% for error in form.tip_ukrasheniya.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.zakupochnaya_tsena.label }}<br>
+            {{ form.zakupochnaya_tsena }}<br>
+            {% for error in form.zakupochnaya_tsena.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.ves.label }}<br>
+            {{ form.ves }}<br>
+            {% for error in form.ves.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.srok_godnosti.label }}<br>
+            {{ form.srok_godnosti }}<br>
+            {% for error in form.srok_godnosti.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
