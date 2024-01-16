@@ -5,7 +5,8 @@
     <a href="/register">Регистрация клиентов</a>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
-        {% if enabled == True %}
+        <div id="tag"></div>
+        {% if attempts <= 3 %}
         <p>
             {{ form.username.label }}<br>
             {{ form.username }}<br>
@@ -16,6 +17,13 @@
         </p>
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p>{{ form.submit() }}</p>
+        {% else %}
+        <script> 
+            setTimeout(() => {
+                    var tag_id = document.getElementById('tag');
+                    tag_id.innerHTML = '<p>{{ form.username.label }}<br>{{ form.username }}<br></p><p>{{ form.password.label }}<br>{{ form.password }}<br> </p><p>{{ form.remember_me() }} {{ form.remember_me.label }}</p><p>{{ form.submit() }}</p>';
+                    }, 5 * 1000);
+        </script>
         {%endif%}
         {% if error %}
             <p><div class="alert alert-danger" role="alert">

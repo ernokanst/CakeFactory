@@ -21,21 +21,15 @@ from decoration_form import DecorationForm
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'jOaqY9515WL6IxQB'
 db = DB('db.db')
-#attempts = 0
-#enabled = True
+attempts = 0
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    #global attempts
-    #attempts += 1
+    global attempts
+    attempts += 1
     error = None
-    #global enabled
-    #print(attempts, enabled)
     form = LoginForm()
-    #if attempts > 3 and not enabled:
-        #time.sleep(5)
-        #enabled = True
-        #return render_template('login.html', title='Авторизация', form=form, error=error, attempts=attempts, enabled=enabled)
     if form.validate_on_submit():
         user_name = form.username.data
         password = form.password.data
@@ -49,10 +43,9 @@ def login():
             return redirect("/")
         else:
             error = 'Логин или пароль неверны'
-            #if attempts > 3:
-                #error += ". Подождите 5 секунд" 
-                #enabled = False
-    return render_template('login.html', title='Авторизация', form=form, error=error, enabled=True)
+            if attempts > 3:
+                error += ". Подождите 5 секунд" 
+    return render_template('login.html', title='Авторизация', form=form, error=error, attempts=attempts)
 
 
 @app.route('/register', methods=['GET', 'POST'])
